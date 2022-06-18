@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c36velgas3n3k"]
+
+[ext_resource type="Script" path="res://planet/atmosphere/planet_atmosphere.gd" id="1_5b2ii"]
+
+[node name="PlanetAthmosphere" type="Node3D"]
+script = ExtResource( "1_5b2ii" )

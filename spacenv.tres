@@ -1,0 +1,8 @@
+[gd_resource type="Environment" format=3 uid="uid://br46nuigftexl"]
+
+[resource]
+background_mode = 1
+background_energy = 0.16
+sky_custom_fov = 26.2
+ambient_light_source = 2
+ambient_light_energy = 0.1
