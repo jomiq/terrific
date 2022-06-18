@@ -121,7 +121,7 @@ void fragment() {
 	// TODO if we run this shader in a double-clip scenario,
 	// we have to account for the near and far clips properly, so they can be composed seamlessly
 	
-	if (rs_atmo.x != rs_atmo.y) {
+	if (abs(rs_atmo.x - rs_atmo.y) < 0.0001) {
 		float t_begin = max(rs_atmo.x, 0.0);
 		float t_end = max(rs_atmo.y, 0.0);
 		t_end = min(t_end, linear_depth);
