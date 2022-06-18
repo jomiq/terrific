@@ -6,3 +6,4 @@ background_energy = 0.16
 sky_custom_fov = 26.2
 ambient_light_source = 2
 ambient_light_energy = 0.1
+auto_exposure_enabled = true

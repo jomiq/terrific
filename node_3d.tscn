@@ -24,17 +24,18 @@ shader_param/u_lod_fade = null
 generator = ExtResource( "1_n0tfq" )
 mesher = SubResource( "VoxelMesherTransvoxel_xabg0" )
 gi_mode = 2
-view_distance = 100
+view_distance = 1000
 lod_count = 3
 lod_distance = 100.0
 material = SubResource( "ShaderMaterial_3ofpv" )
+full_load_mode_enabled = true
 threaded_update_enabled = true
 script = ExtResource( "2_bsph2" )
-speed = 1.5
+speed = 0.0
 
 [node name="PlanetAthmosphere" parent="VoxelLodTerrain" instance=ExtResource( "4_w72dg" )]
-planet_radius = 104.0
-atmosphere_height = 10.0
+planet_radius = 94.0
+atmosphere_height = 15.0
 sun_path = NodePath("../../DirectionalLight3D")
 shader_params/u_attenuation_distance = null
 shader_params/u_day_color0 = null
@@ -48,7 +49,7 @@ environment = ExtResource( "3_1eyv7" )
 
 [node name="Node3D" type="Node3D" parent="."]
 script = ExtResource( "2_bsph2" )
-speed = 10.2
+speed = 0.3
 
 [node name="Camera3D" type="Camera3D" parent="Node3D"]
 transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 210.606, 0, 0)
