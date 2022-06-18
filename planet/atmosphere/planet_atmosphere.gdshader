@@ -91,8 +91,7 @@ void vertex() {
 		//	mat4(CAMERA_MATRIX[0],CAMERA_MATRIX[1],CAMERA_MATRIX[2],WORLD_MATRIX[3]);
 	}
 	
-	//vec4 world_pos = MODEL_MATRIX * vec4(0, 0, 0, 1);
-	//v_planet_center_viewspace = (VIEW_MATRIX * world_pos).xyz;
+	//vec4 world_pos = WORLD_MATRIX * vec4(0, 0, 0, 1);
 	v_planet_center_viewspace = (MODELVIEW_MATRIX*vec4(0, 0, 0, 1)).xyz;
 	v_sun_center_viewspace = (MODELVIEW_MATRIX * vec4(u_sun_position, 1.0)).xyz;
 }
@@ -100,8 +99,7 @@ void vertex() {
 void fragment() {
 	// TODO Is depth texture really needed in the end?
 	float nonlinear_depth = texture(DEPTH_TEXTURE, SCREEN_UV).x;
-	// Note, we assume Vulkan here, which has NDC in 0..1 (OpenGL is -1..1)
-	vec3 ndc = vec3(SCREEN_UV * 2.0 - 1.0, nonlinear_depth);
+	vec3 ndc = vec3(SCREEN_UV, nonlinear_depth) * 2.0 - 1.0;
 	vec4 view_coords = INV_PROJECTION_MATRIX * vec4(ndc, 1.0);
 	//view_coords.xyz /= view_coords.w;
 	//float linear_depth = -view_coords.z; // Not what I want because it changes when looking around
@@ -121,7 +119,7 @@ void fragment() {
 	// TODO if we run this shader in a double-clip scenario,
 	// we have to account for the near and far clips properly, so they can be composed seamlessly
 	
-	if (abs(rs_atmo.x - rs_atmo.y) < 0.0001) {
+	if (rs_atmo.x != rs_atmo.y) {
 		float t_begin = max(rs_atmo.x, 0.0);
 		float t_end = max(rs_atmo.y, 0.0);
 		t_end = min(t_end, linear_depth);
