@@ -43,6 +43,13 @@ var _custom_shader : Shader
 		return _custom_shader
 	set(value):
 		set_custom_shader(value)
+		
+
+@export var dc0 : Color = Color(0.29, 0.39, 0.92)
+@export var dc1 : Color = Color(0.76, 0.90, 1.0)
+@export var nc0 : Color = Color(0.15, 0.10, 0.33)
+@export var nc1 : Color =  Color(0.0, 0.0, 0.0)
+@export var density : float = 0.2
 
 
 var _far_mesh : BoxMesh
@@ -81,11 +88,11 @@ func _init():
 
 	# Setup defaults for the builtin shader
 	# This is a workaround for https://github.com/godotengine/godot/issues/24488
-	material.set_shader_param("u_day_color0", Color(0.29, 0.39, 0.92))
-	material.set_shader_param("u_day_color1", Color(0.76, 0.90, 1.0))
-	material.set_shader_param("u_night_color0", Color(0.15, 0.10, 0.33))
-	material.set_shader_param("u_night_color1", Color(0.0, 0.0, 0.0))
-	material.set_shader_param("u_density", 0.2)
+	material.set_shader_param("u_day_color0", dc0)
+	material.set_shader_param("u_day_color1", dc1)
+	material.set_shader_param("u_night_color0", nc0)
+	material.set_shader_param("u_night_color1", nc1)
+	material.set_shader_param("u_density", density)
 	material.set_shader_param("u_sun_position", Vector3(5000, 0, 0))
 
 
@@ -94,6 +101,12 @@ func _ready():
 	mat.set_shader_param("u_planet_radius", _planet_radius)
 	mat.set_shader_param("u_atmosphere_height", _atmosphere_height)
 	mat.set_shader_param("u_clip_mode", false)
+	
+	mat.set_shader_param("u_day_color0", dc0)
+	mat.set_shader_param("u_day_color1", dc1)
+	mat.set_shader_param("u_night_color0", nc0)
+	mat.set_shader_param("u_night_color1", nc1)
+	mat.set_shader_param("u_density", density)
 
 
 func set_custom_shader(shader: Shader):
