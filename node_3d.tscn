@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://b8uwg5pdf2ekl"]
+[gd_scene load_steps=9 format=3 uid="uid://d76tk77h5nrv"]
 
-[ext_resource type="VoxelGeneratorGraph" uid="uid://cery7bidw70k6" path="res://default_graph.tres" id="1_n0tfq"]
-[ext_resource type="Script" path="res://rotme.gd" id="2_bsph2"]
+[ext_resource type="VoxelGeneratorGraph" uid="uid://cery7bidw70k6" path="res://planet/default_graph.tres" id="1_n0tfq"]
 [ext_resource type="Shader" path="res://planet/default_planet.gdshader" id="2_trptp"]
 [ext_resource type="Environment" uid="uid://br46nuigftexl" path="res://spacenv.tres" id="3_1eyv7"]
 [ext_resource type="PackedScene" uid="uid://c36velgas3n3k" path="res://planet/atmosphere/planet_atmosphere.tscn" id="4_w72dg"]
+[ext_resource type="PackedScene" uid="uid://cdx8ybi354mp4" path="res://sun.tscn" id="5_sk837"]
+[ext_resource type="Script" path="res://utils/free_look_camera.gd" id="6_ets4w"]
 
 [sub_resource type="VoxelMesherTransvoxel" id="VoxelMesherTransvoxel_xabg0"]
 texturing_mode = 1
@@ -30,13 +31,12 @@ lod_distance = 100.0
 material = SubResource( "ShaderMaterial_3ofpv" )
 full_load_mode_enabled = true
 threaded_update_enabled = true
-script = ExtResource( "2_bsph2" )
-speed = 0.0
 
 [node name="PlanetAthmosphere" parent="VoxelLodTerrain" instance=ExtResource( "4_w72dg" )]
-planet_radius = 94.0
-atmosphere_height = 15.0
+planet_radius = 87.0
+atmosphere_height = 20.0
 sun_path = NodePath("../../DirectionalLight3D")
+density = 5.0
 shader_params/u_attenuation_distance = null
 shader_params/u_day_color0 = null
 shader_params/u_day_color1 = null
@@ -46,18 +46,6 @@ shader_params/u_night_color1 = Color(0, 0, 0, 1)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource( "3_1eyv7" )
-
-[node name="Node3D" type="Node3D" parent="."]
-script = ExtResource( "2_bsph2" )
-speed = 0.3
-
-[node name="Camera3D" type="Camera3D" parent="Node3D"]
-transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 210.606, 0, 0)
-fov = 71.6
-far = 10000.0
-
-[node name="VoxelViewer" type="VoxelViewer" parent="Node3D/Camera3D"]
-view_distance = 1024
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3000)
@@ -69,3 +57,14 @@ directional_shadow_split_2 = 0.375
 directional_shadow_blend_splits = true
 directional_shadow_fade_start = 0.46
 directional_shadow_max_distance = 100000.0
+
+[node name="Sol" parent="DirectionalLight3D" instance=ExtResource( "5_sk837" )]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 210.606, 0, 0)
+fov = 71.6
+far = 10000.0
+script = ExtResource( "6_ets4w" )
+
+[node name="VoxelViewer" type="VoxelViewer" parent="Camera3D"]
+view_distance = 1024

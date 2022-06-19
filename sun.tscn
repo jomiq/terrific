@@ -1,0 +1,77 @@
+[gd_scene load_steps=8 format=3 uid="uid://cdx8ybi354mp4"]
+
+[ext_resource type="Environment" uid="uid://br46nuigftexl" path="res://spacenv.tres" id="1_me8nu"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_angr8"]
+radius = 1000.0
+height = 2000.0
+
+[sub_resource type="VisualShaderNodeColorUniform" id="VisualShaderNodeColorUniform_g0dlo"]
+uniform_name = "C0"
+default_value_enabled = true
+default_value = Color(1, 0.966577, 0, 1)
+
+[sub_resource type="VisualShaderNodeFloatUniform" id="VisualShaderNodeFloatUniform_ubmea"]
+uniform_name = "intensity"
+default_value_enabled = true
+default_value = 0.7
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_h32q0"]
+operator = 2
+
+[sub_resource type="VisualShader" id="VisualShader_454mi"]
+code = "shader_type spatial;
+uniform vec4 C0 : source_color = vec4(1.000000, 0.966577, 0.000000, 1.000000);
+uniform float intensity = 0.69999998807907;
+
+
+
+void fragment() {
+// ColorUniform:3
+	vec4 n_out3p0 = C0;
+
+
+// FloatUniform:4
+	float n_out4p0 = intensity;
+
+
+// VectorOp:5
+	vec3 n_out5p0 = vec3(n_out3p0.xyz) * vec3(n_out4p0);
+
+
+// Output:0
+	ALBEDO = vec3(n_out3p0.xyz);
+	EMISSION = n_out5p0;
+
+
+}
+"
+graph_offset = Vector2(-211.253, 6)
+engine_version = {
+"major": 4,
+"minor": 0
+}
+nodes/fragment/0/position = Vector2(1580, 160)
+nodes/fragment/3/node = SubResource( "VisualShaderNodeColorUniform_g0dlo" )
+nodes/fragment/3/position = Vector2(80, 180)
+nodes/fragment/4/node = SubResource( "VisualShaderNodeFloatUniform_ubmea" )
+nodes/fragment/4/position = Vector2(100, 540)
+nodes/fragment/5/node = SubResource( "VisualShaderNodeVectorOp_h32q0" )
+nodes/fragment/5/position = Vector2(760, 440)
+nodes/fragment/connections = PackedInt32Array(3, 0, 0, 0, 3, 0, 5, 0, 4, 0, 5, 1, 5, 0, 0, 5, 3, 0, 0, 0, 3, 0, 5, 0, 4, 0, 5, 1, 5, 0, 0, 5)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4wwtu"]
+render_priority = 0
+shader = SubResource( "VisualShader_454mi" )
+shader_param/C0 = null
+shader_param/intensity = null
+
+[node name="Sol" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource( "1_me8nu" )
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+cast_shadow = 0
+mesh = SubResource( "SphereMesh_angr8" )
+surface_material_override/0 = SubResource( "ShaderMaterial_4wwtu" )
