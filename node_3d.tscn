@@ -1,10 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://d76tk77h5nrv"]
+[gd_scene load_steps=11 format=3 uid="uid://d76tk77h5nrv"]
 
 [ext_resource type="VoxelGeneratorGraph" uid="uid://cery7bidw70k6" path="res://planet/default_graph.tres" id="1_n0tfq"]
 [ext_resource type="Shader" path="res://planet/default_planet.gdshader" id="2_trptp"]
 [ext_resource type="Environment" uid="uid://br46nuigftexl" path="res://spacenv.tres" id="3_1eyv7"]
-[ext_resource type="PackedScene" uid="uid://c36velgas3n3k" path="res://planet/atmosphere/planet_atmosphere.tscn" id="4_w72dg"]
-[ext_resource type="PackedScene" uid="uid://cdx8ybi354mp4" path="res://sun.tscn" id="5_sk837"]
+[ext_resource type="Material" uid="uid://d2t16nudpxvsw" path="res://Testing/default_atmosphere.tres" id="3_e1gr5"]
 [ext_resource type="Script" path="res://utils/free_look_camera.gd" id="6_ets4w"]
 
 [sub_resource type="VoxelMesherTransvoxel" id="VoxelMesherTransvoxel_xabg0"]
@@ -13,58 +12,62 @@ mesh_optimization_target_ratio = 0.1
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3ofpv"]
 render_priority = 0
-shader = ExtResource( "2_trptp" )
+shader = ExtResource("2_trptp")
 shader_param/A = Color(0.894118, 0.733333, 0.239216, 1)
 shader_param/B = Color(0.0431373, 0.0431373, 0.32549, 1)
 shader_param/u_block_local_transform = null
 shader_param/u_lod_fade = null
 
+[sub_resource type="SphereMesh" id="SphereMesh_unt1o"]
+material = ExtResource("3_e1gr5")
+radius = 150.0
+height = 300.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xa483"]
+albedo_color = Color(0, 0.117647, 0.329412, 1)
+metallic = 0.71
+metallic_specular = 0.53
+roughness = 0.16
+emission_enabled = true
+emission = Color(0.00392157, 0.0156863, 0.0392157, 1)
+emission_energy = 1.1
+
+[sub_resource type="SphereMesh" id="SphereMesh_3lo34"]
+material = SubResource("StandardMaterial3D_xa483")
+radius = 101.0
+height = 202.0
+
 [node name="Node3D" type="Node3D"]
 
 [node name="VoxelLodTerrain" type="VoxelLodTerrain" parent="."]
-generator = ExtResource( "1_n0tfq" )
-mesher = SubResource( "VoxelMesherTransvoxel_xabg0" )
+generator = ExtResource("1_n0tfq")
+mesher = SubResource("VoxelMesherTransvoxel_xabg0")
 gi_mode = 2
 view_distance = 1000
 lod_count = 3
 lod_distance = 100.0
-material = SubResource( "ShaderMaterial_3ofpv" )
+material = SubResource("ShaderMaterial_3ofpv")
 full_load_mode_enabled = true
 threaded_update_enabled = true
 
-[node name="PlanetAthmosphere" parent="VoxelLodTerrain" instance=ExtResource( "4_w72dg" )]
-planet_radius = 87.0
-atmosphere_height = 20.0
-sun_path = NodePath("../../DirectionalLight3D")
-density = 5.0
-shader_params/u_attenuation_distance = null
-shader_params/u_day_color0 = null
-shader_params/u_day_color1 = null
-shader_params/u_density = null
-shader_params/u_night_color0 = Color(0.15, 0.1, 0.33, 1)
-shader_params/u_night_color1 = Color(0, 0, 0, 1)
+[node name="atmo" type="MeshInstance3D" parent="VoxelLodTerrain"]
+cast_shadow = 0
+mesh = SubResource("SphereMesh_unt1o")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="VoxelLodTerrain/atmo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 239.911)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="VoxelLodTerrain"]
+mesh = SubResource("SphereMesh_3lo34")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = ExtResource( "3_1eyv7" )
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3000)
-light_bake_mode = 0
-shadow_enabled = true
-shadow_reverse_cull_face = true
-directional_shadow_split_1 = 0.026
-directional_shadow_split_2 = 0.375
-directional_shadow_blend_splits = true
-directional_shadow_fade_start = 0.46
-directional_shadow_max_distance = 100000.0
-
-[node name="Sol" parent="DirectionalLight3D" instance=ExtResource( "5_sk837" )]
+environment = ExtResource("3_1eyv7")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 210.606, 0, 0)
 fov = 71.6
 far = 10000.0
-script = ExtResource( "6_ets4w" )
+script = ExtResource("6_ets4w")
 
 [node name="VoxelViewer" type="VoxelViewer" parent="Camera3D"]
 view_distance = 1024

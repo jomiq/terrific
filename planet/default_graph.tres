@@ -23,7 +23,7 @@ graph_data = {
 },
 "15": {
 "gui_position": Vector2(400, 466.667),
-"noise": SubResource( "ZN_FastNoiseLite_dquti" ),
+"noise": SubResource("ZN_FastNoiseLite_dquti"),
 "type": "FastNoise3D"
 },
 "16": {
@@ -71,7 +71,7 @@ graph_data = {
 "8": {
 "gui_position": Vector2(400, 333.333),
 "name": &"Ridged",
-"noise": SubResource( "ZN_FastNoiseLite_nvfbs" ),
+"noise": SubResource("ZN_FastNoiseLite_nvfbs"),
 "type": "FastNoise3D"
 },
 "9": {
