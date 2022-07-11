@@ -1,8 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://bbj6o7mrpyhw2"]
+[gd_scene load_steps=11 format=3]
 
 [ext_resource type="VoxelGeneratorGraph" uid="uid://cery7bidw70k6" path="res://planet/default_graph.tres" id="1_sfqo3"]
 [ext_resource type="Shader" path="res://planet/default_planet.gdshader" id="2_riyxv"]
-[ext_resource type="Material" uid="uid://d2t16nudpxvsw" path="res://Testing/default_atmosphere.tres" id="3_hc370"]
+[ext_resource type="Material" path="res://planet/Atmosphere/default_atmosphere.tres" id="3_hc370"]
 [ext_resource type="Environment" uid="uid://br46nuigftexl" path="res://spacenv.tres" id="4_1aqc6"]
 [ext_resource type="Script" path="res://utils/free_look_camera.gd" id="5_26o8n"]
 

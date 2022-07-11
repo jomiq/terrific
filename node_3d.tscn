@@ -1,14 +1,14 @@
-[gd_scene load_steps=11 format=3 uid="uid://d76tk77h5nrv"]
+[gd_scene load_steps=10 format=3 uid="uid://dji42o3regpgc"]
 
 [ext_resource type="VoxelGeneratorGraph" uid="uid://cery7bidw70k6" path="res://planet/default_graph.tres" id="1_n0tfq"]
 [ext_resource type="Shader" path="res://planet/default_planet.gdshader" id="2_trptp"]
 [ext_resource type="Environment" uid="uid://br46nuigftexl" path="res://spacenv.tres" id="3_1eyv7"]
-[ext_resource type="Material" uid="uid://d2t16nudpxvsw" path="res://Testing/default_atmosphere.tres" id="3_e1gr5"]
+[ext_resource type="Material" uid="uid://lvpc40w1cg4p" path="res://planet/Atmosphere/default_atmosphere.tres" id="3_e1gr5"]
 [ext_resource type="Script" path="res://utils/free_look_camera.gd" id="6_ets4w"]
+[ext_resource type="Script" path="res://utils/data_display.gd" id="6_p8bt7"]
 
-[sub_resource type="VoxelMesherTransvoxel" id="VoxelMesherTransvoxel_xabg0"]
+[sub_resource type="VoxelMesherTransvoxel" id="VoxelMesherTransvoxel_c5oxn"]
 texturing_mode = 1
-mesh_optimization_target_ratio = 0.1
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3ofpv"]
 render_priority = 0
@@ -20,28 +20,17 @@ shader_param/u_lod_fade = null
 
 [sub_resource type="SphereMesh" id="SphereMesh_unt1o"]
 material = ExtResource("3_e1gr5")
+flip_faces = true
 radius = 150.0
 height = 300.0
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xa483"]
-albedo_color = Color(0, 0.117647, 0.329412, 1)
-metallic = 0.71
-metallic_specular = 0.53
-roughness = 0.16
-emission_enabled = true
-emission = Color(0.00392157, 0.0156863, 0.0392157, 1)
-emission_energy = 1.1
-
-[sub_resource type="SphereMesh" id="SphereMesh_3lo34"]
-material = SubResource("StandardMaterial3D_xa483")
-radius = 101.0
-height = 202.0
+radial_segments = 8
+rings = 8
 
 [node name="Node3D" type="Node3D"]
 
 [node name="VoxelLodTerrain" type="VoxelLodTerrain" parent="."]
 generator = ExtResource("1_n0tfq")
-mesher = SubResource("VoxelMesherTransvoxel_xabg0")
+mesher = SubResource("VoxelMesherTransvoxel_c5oxn")
 gi_mode = 2
 view_distance = 1000
 lod_count = 3
@@ -56,9 +45,7 @@ mesh = SubResource("SphereMesh_unt1o")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="VoxelLodTerrain/atmo"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 239.911)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="VoxelLodTerrain"]
-mesh = SubResource("SphereMesh_3lo34")
+shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("3_1eyv7")
@@ -71,3 +58,14 @@ script = ExtResource("6_ets4w")
 
 [node name="VoxelViewer" type="VoxelViewer" parent="Camera3D"]
 view_distance = 1024
+
+[node name="Container" type="Container" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="Container" node_paths=PackedStringArray("target")]
+offset_right = 40.0
+offset_bottom = 23.0
+script = ExtResource("6_p8bt7")
+target = NodePath("../../Camera3D")
+parameter = "altitude"
