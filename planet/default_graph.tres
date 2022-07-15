@@ -1,16 +1,16 @@
 [gd_resource type="VoxelGeneratorGraph" load_steps=3 format=3 uid="uid://cery7bidw70k6"]
 
-[sub_resource type="ZN_FastNoiseLite" id="ZN_FastNoiseLite_dquti"]
-
-[sub_resource type="ZN_FastNoiseLite" id="ZN_FastNoiseLite_nvfbs"]
+[sub_resource type="ZN_FastNoiseLite" id="ZN_FastNoiseLite_ab4k7"]
 noise_type = 2
 period = 108.7
 fractal_type = 2
 fractal_ping_pong_strength = 7.0
 
+[sub_resource type="ZN_FastNoiseLite" id="ZN_FastNoiseLite_otb03"]
+
 [resource]
 graph_data = {
-"connections": [[17, 0, 9, 1], [17, 0, 23, 0], [1, 0, 6, 0], [1, 0, 8, 0], [1, 0, 15, 0], [2, 0, 6, 1], [2, 0, 8, 1], [2, 0, 15, 1], [10, 0, 17, 0], [23, 0, 22, 0], [15, 0, 16, 0], [16, 0, 17, 1], [3, 0, 6, 2], [3, 0, 8, 2], [3, 0, 15, 2], [6, 0, 4, 0], [7, 0, 9, 0], [8, 0, 10, 0], [9, 0, 6, 3]],
+"connections": [[9, 0, 6, 3], [8, 0, 10, 0], [7, 0, 9, 0], [17, 0, 9, 1], [17, 0, 23, 0], [6, 0, 4, 0], [16, 0, 17, 1], [1, 0, 6, 0], [1, 0, 8, 0], [1, 0, 15, 0], [23, 0, 22, 0], [15, 0, 16, 0], [10, 0, 17, 0], [2, 0, 6, 1], [2, 0, 8, 1], [2, 0, 15, 1], [3, 0, 6, 2], [3, 0, 8, 2], [3, 0, 15, 2]],
 "nodes": {
 "1": {
 "gui_position": Vector2(186.667, -13.3333),
@@ -23,7 +23,7 @@ graph_data = {
 },
 "15": {
 "gui_position": Vector2(400, 466.667),
-"noise": SubResource("ZN_FastNoiseLite_dquti"),
+"noise": SubResource("ZN_FastNoiseLite_otb03"),
 "type": "FastNoise3D"
 },
 "16": {
@@ -71,7 +71,7 @@ graph_data = {
 "8": {
 "gui_position": Vector2(400, 333.333),
 "name": &"Ridged",
-"noise": SubResource("ZN_FastNoiseLite_nvfbs"),
+"noise": SubResource("ZN_FastNoiseLite_ab4k7"),
 "type": "FastNoise3D"
 },
 "9": {

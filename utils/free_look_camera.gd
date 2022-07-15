@@ -9,6 +9,8 @@ extends Camera3D
 
 @onready var _velocity = default_velocity
 
+var altitude
+
 func _input(event):
 	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		if event is InputEventMouseMotion:
@@ -31,5 +33,7 @@ func _process(delta):
 		float(Input.is_key_pressed(KEY_E)) - float(Input.is_key_pressed(KEY_Q)), 
 		float(Input.is_key_pressed(KEY_S)) - float(Input.is_key_pressed(KEY_W))
 	).normalized()
+	
+	altitude = transform.origin.length()
 	
 	translate(direction * _velocity * delta)

@@ -1,7 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://m5i66pxpqqdd"]
+[gd_scene load_steps=6 format=3]
 
 [ext_resource type="Environment" uid="uid://br46nuigftexl" path="res://spacenv.tres" id="1_dqbyp"]
-[ext_resource type="Shader" path="res://Testing/atmosphere.gdshader" id="2_5t5bx"]
+[ext_resource type="Shader" path="res://planet/Atmosphere/atmosphere.gdshader" id="2_5t5bx"]
 [ext_resource type="Script" path="res://utils/free_look_camera.gd" id="3_ci20s"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_tbhau"]
