@@ -1,0 +1,20 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://lvpc40w1cg4p"]
+
+[ext_resource type="Shader" path="res://planet/Atmosphere/atmosphere.gdshader" id="1_4t01m"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_4t01m")
+shader_param/atmo_radius = 300.0
+shader_param/beta_ambient = Vector3(0, 0, 0)
+shader_param/beta_e = 0.0
+shader_param/beta_mie = Vector3(3, 1, 1)
+shader_param/beta_ray = Vector3(0.1, 0.2, 0.3)
+shader_param/density_multiplier = 1.0
+shader_param/g = 0.6
+shader_param/height_mie = 0.9
+shader_param/height_ray = 2.6
+shader_param/light_intensity = Vector3(15, 15, 15)
+shader_param/planet_radius = 98.028
+shader_param/steps_i = 32
+shader_param/steps_l = 4

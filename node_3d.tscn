@@ -39,14 +39,6 @@ material = SubResource("ShaderMaterial_3ofpv")
 full_load_mode_enabled = true
 threaded_update_enabled = true
 
-[node name="atmo" type="MeshInstance3D" parent="VoxelLodTerrain"]
-cast_shadow = 0
-mesh = SubResource("SphereMesh_unt1o")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="VoxelLodTerrain/atmo"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 239.911)
-shadow_enabled = true
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("3_1eyv7")
 
@@ -69,3 +61,13 @@ offset_bottom = 23.0
 script = ExtResource("6_p8bt7")
 target = NodePath("../../Camera3D")
 parameter = "altitude"
+
+[node name="atmo" type="MeshInstance3D" parent="."]
+cast_shadow = 0
+gi_mode = 2
+mesh = SubResource("SphereMesh_unt1o")
+skeleton = NodePath("../VoxelLodTerrain")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="atmo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 239.911)
+shadow_enabled = true
